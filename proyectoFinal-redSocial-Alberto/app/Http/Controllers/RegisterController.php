@@ -36,6 +36,6 @@ class RegisterController extends Controller
                 'password' => $validated['password']
             ]);
 
-            return redirect()->route('posts.index');
+            return redirect()->route('posts.index', auth()->user());
         }
 }
