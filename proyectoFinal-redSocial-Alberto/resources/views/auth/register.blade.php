@@ -85,9 +85,10 @@
                 </div>
 
                 <input type="submit" 
-                value="Crear cuenta" 
-                class="bg-sky-600 hover:bg-sky-700 transition-color cursor-pointer 
-                uppercase font-bold w-full p-3 text-white rounded-lg">
+                    value="Crear cuenta" 
+                    class="bg-sky-600 hover:bg-sky-700 transition-color cursor-pointer 
+                    uppercase font-bold w-full p-3 text-white rounded-lg"
+                >
             </form>
         </div>
     </div>
