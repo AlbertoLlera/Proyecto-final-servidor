@@ -20,7 +20,12 @@
         <div class="md:w-1/2 p-10 md:justify-center bg-white rounded-lg shadow-xl mt-10 md:mt-0">
             <form action="{{route('posts.store')}}" method="POST" novalidate>
                 @csrf
-                <input type="hidden" name="imagen" id="imagen" value="{{old('imagen')}}">
+                <input 
+                    type="hidden" 
+                    name="imagen" 
+                    id="imagen" 
+                    value="{{old('imagen')}}"
+                >
                 @error('imagen')
                     <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                 @enderror

@@ -11,6 +11,37 @@ Dropzone.autoDiscover = false;
 
 const dropzoneElement = document.querySelector('#dropzone');
 const imagenInput = document.querySelector('#imagen');
+const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+
+const getImageNameFromResponse = (file, response) => {
+    if (response?.imagen) {
+        return response.imagen;
+    }
+
+    if (typeof response === 'string') {
+        try {
+            const parsed = JSON.parse(response);
+            if (parsed?.imagen) {
+                return parsed.imagen;
+            }
+        } catch (error) {
+            return response.trim();
+        }
+    }
+
+    if (file?.xhr?.response) {
+        try {
+            const parsed = JSON.parse(file.xhr.response);
+            if (parsed?.imagen) {
+                return parsed.imagen;
+            }
+        } catch (error) {
+            return '';
+        }
+    }
+
+    return '';
+};
 
 if (dropzoneElement) {
     const dropzone = new Dropzone(dropzoneElement, {
@@ -20,6 +51,10 @@ if (dropzoneElement) {
         dictRemoveFile: 'Borrar archivo',
         maxFiles: 1,
         uploadMultiple: false,
+        paramName: 'file',
+        headers: {
+            'X-CSRF-TOKEN': csrfToken
+        },
 
         init: function () {
             if (imagenInput?.value.trim()) {
@@ -32,12 +67,35 @@ if (dropzoneElement) {
     });
 
     dropzone.on('success', function (file, response) {
-        if (imagenInput && response?.imagen) {
-            imagenInput.value = response.imagen;
+        const imageName = getImageNameFromResponse(file, response);
+
+        if (imagenInput && imageName) {
+            imagenInput.value = imageName;
+            file.previewElement?.classList.remove('dz-error');
+        } else {
+            this.emit('error', file, 'No pudimos leer el nombre del archivo devuelto por el servidor.');
         }
     });
     
     dropzone.on('removedfile', function(){
+        if (imagenInput) {
+            imagenInput.value = '';
+        }
+    });
+
+    dropzone.on('error', function(file, errorMessage) {
+        const message = typeof errorMessage === 'string'
+            ? errorMessage
+            : errorMessage?.errors?.file?.[0]
+                ?? 'No se pudo subir la imagen, inténtalo de nuevo.';
+
+        if (file?.previewElement) {
+            const errorNode = file.previewElement.querySelector('[data-dz-errormessage]');
+            if (errorNode) {
+                errorNode.textContent = message;
+            }
+        }
+
         if (imagenInput) {
             imagenInput.value = '';
         }
