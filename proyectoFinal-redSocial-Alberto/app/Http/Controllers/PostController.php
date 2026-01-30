@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Symfony\Component\Mime\Part\File;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -77,9 +78,20 @@ class PostController extends BaseController
     }
 
     public function destroy(Post $post){
-        if($post->user_id === auth()->user->id){
-            $post->delete();
+        //Utilizamos el método authorize para verificar la política definida en PostPolicy
+        $this->authorize('delete', $post);
+
+        //Elimnamos la imagen a la vez que el post
+        $imagen_path = public_path('uploads/' . $post->imagen);
+
+        if (file_exists($imagen_path)){
+            unlink($imagen_path);
+            File::delete($imagen_path);
         }
+
+        //Borramos y redirigimos a su muro
+        $post->delete();
+        return redirect()->route('posts.index', auth()->user()->username);
     }
     
 }

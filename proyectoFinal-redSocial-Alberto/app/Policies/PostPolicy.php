@@ -41,11 +41,11 @@ class PostPolicy
     }
 
     /**
-     * Determine whether the user can delete the model.
+     * Conformamos que el usuario registrado es que ha realizado el post
      */
     public function delete(User $user, Post $post): bool
     {
-        return false;
+        return $user->id === $post->user_id;
     }
 
     /**
