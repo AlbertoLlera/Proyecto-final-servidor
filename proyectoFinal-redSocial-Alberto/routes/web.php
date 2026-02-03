@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LoginController;
@@ -10,10 +11,21 @@ use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\FollowerController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ComentarioController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Admin\PostController as AdminPostController;
+use App\Http\Controllers\Admin\CommentController as AdminCommentController;
+use App\Http\Controllers\SearchController;
 use Symfony\Component\Routing\Route as RoutingRoute;
 
-Route::get('/', function () {
-    return view('principal');
+
+//Eliminamos el arreglo y el método, porque HomeController es de tipo invokable
+Route::get('/', HomeController::class)->name('home');
+Route::get('/buscar', SearchController::class)->name('users.search');
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::resource('users', AdminUserController::class)->except(['show']);
+    Route::resource('posts', AdminPostController::class)->except(['show']);
+    Route::resource('comments', AdminCommentController::class)->except(['show']);
 });
 
 /*

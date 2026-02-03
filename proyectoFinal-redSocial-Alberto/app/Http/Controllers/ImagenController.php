@@ -22,8 +22,8 @@ class ImagenController extends Controller
         $imagenProcesada = Image::read($archivo)->scaleDown(1200, 1200);
 
         $ruta = "uploads/{$nombreImagen}";
-        $contenido = $imagenProcesada->encodeByPath($nombreImagen);
-        Storage::disk('public')->put($ruta, (string) $contenido);
+        $contenido = (string) $imagenProcesada->encode();
+        Storage::disk('public')->put($ruta, $contenido);
 
         return response()->json(['imagen' => $nombreImagen], 201);
     }

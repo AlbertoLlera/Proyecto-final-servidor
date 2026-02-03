@@ -21,7 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'username'
+        'username',
+        'role'
     ];
 
     /**
@@ -72,6 +73,11 @@ class User extends Authenticatable
     //Metodo que almacena los usuarios a los que un usuario sigue
     public function following(){
         return $this->belongsToMany(User::class, 'followers', 'follower_id', 'user_id');
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
     }
 
 }

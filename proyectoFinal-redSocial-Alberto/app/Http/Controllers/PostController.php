@@ -27,7 +27,7 @@ class PostController extends BaseController
     public function index (User $user) {
 
         //Get al final es importante para que extraiga los datos del usuario
-        $posts = Post::where('user_id', $user->id)->paginate(20);
+        $posts = Post::where('user_id', $user->id)->latest()->paginate(20);
 
         //La vista está recibiendo dos variables y en cada una de ellas un objeto con los datos del usuario y del post
       return view('dashboard', [

@@ -30,6 +30,7 @@ class RegisterController extends Controller
                 'username' => Str::slug ($validated['username']),
                 'email' => $validated['email'],   
                 'password' => bcrypt($validated['password']),
+                'role' => 'user',
             ]);
 
             Auth::attempt([
