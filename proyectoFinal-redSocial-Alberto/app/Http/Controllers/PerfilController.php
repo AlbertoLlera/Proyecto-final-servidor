@@ -42,8 +42,17 @@ class PerfilController extends Controller
             $imagenProcesada = Image::read($archivo)->scaleDown(1000, 1000);
 
             $ruta = "perfiles/{$nombreImagen}";
-            $contenido = $imagenProcesada->encodeByPath($nombreImagen);
-            Storage::disk('public')->put($ruta, (string) $contenido);
+            // Preservar el formato original de la imagen
+            $extension = strtolower($archivo->getClientOriginalExtension());
+            
+            $contenido = match($extension) {
+                'png' => (string) $imagenProcesada->toPng(),
+                'gif' => (string) $imagenProcesada->toGif(),
+                'webp' => (string) $imagenProcesada->toWebp(),
+                default => (string) $imagenProcesada->toJpeg(),
+            };
+            
+            Storage::disk('public')->put($ruta, $contenido);
 
             $usuario->imagen = $nombreImagen;
         }

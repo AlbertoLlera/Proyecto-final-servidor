@@ -46,7 +46,7 @@ const getImageNameFromResponse = (file, response) => {
 if (dropzoneElement) {
     const dropzone = new Dropzone(dropzoneElement, {
         dictDefaultMessage: 'Sube aquí tu imagen',
-        acceptedFiles: '.png,.jpg,.jpeg,.gif,.bmp',
+        acceptedFiles: '.png,.jpg,.jpeg,.gif,.webp,.bmp,.PNG,.JPG,.JPEG,.GIF,.WEBP,.BMP',
         addRemoveLinks: true,
         dictRemoveFile: 'Borrar archivo',
         maxFiles: 1,

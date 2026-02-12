@@ -31,4 +31,16 @@ class ComentarioController extends Controller
             return back()->with('mensaje', 'Comentario realizado correctamente');
 
     }
+
+    public function destroy(User $user, Post $post, Comentario $comentario)
+    {
+        // Verificar que el usuario es el propietario del comentario o es administrador
+        if ($comentario->user_id !== auth()->user()->id && !auth()->user()->isAdmin()) {
+            abort(403, 'No tienes permiso para eliminar este comentario');
+        }
+
+        $comentario->delete();
+        return back()->with('mensaje', 'Comentario eliminado correctamente');
+    }
 }
+

@@ -54,9 +54,9 @@
                 <p class="text-sm text-gray-500">{{ $post->created_at->diffForHumans() }}</p>
                 <p class="mt-5">{{ $post->descripcion }}</p>
             </div>
-            <!--Revisamos que el usuario este utenticado y que sea el dueño del post para poder mostrar el botón de eliminar-->
+            <!--Revisamos que el usuario este utenticado y que sea el dueño del post o administrador para poder mostrar el botón de eliminar-->
             @auth
-                @if ($post->user_id === auth()->user()->id)
+                @if ($post->user_id === auth()->user()->id || auth()->user()->isAdmin())
                 <form class="bg-white rounded-lg p-5 shadow" action="{{ route('posts.destroy', $post) }}" method="POST">
                     @csrf
                     <!--
@@ -128,6 +128,18 @@
                                 </a>
                                 <p>{{ $comentario->comentario }}</p>
                                 <p class="text-sm text-gray-500">{{ $comentario->created_at->diffForHumans() }}</p>
+                                
+                                @auth
+                                    @if ($comentario->user_id === auth()->user()->id || auth()->user()->isAdmin())
+                                        <form action="{{ route('comentarios.destroy', ['user' => $user, 'post' => $post, 'comentario' => $comentario]) }}" method="POST" class="mt-2">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="text-red-500 hover:text-red-700 text-sm font-bold">
+                                                Eliminar
+                                            </button>
+                                        </form>
+                                    @endif
+                                @endauth
                             </div>
                         @endforeach
                     @else

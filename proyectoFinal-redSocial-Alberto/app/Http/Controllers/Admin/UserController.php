@@ -13,12 +13,23 @@ use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
-        $users = User::orderByDesc('created_at')->paginate(15);
+        $search = $request->input('search');
+        
+        $query = User::orderByDesc('created_at');
+        
+        if ($search) {
+            $query->where('name', 'like', "%{$search}%")
+                  ->orWhere('username', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%");
+        }
+        
+        $users = $query->paginate(15);
 
         return view('admin.users.index', [
             'users' => $users,
+            'search' => $search,
         ]);
     }
 

@@ -42,10 +42,11 @@ class PostPolicy
 
     /**
      * Conformamos que el usuario registrado es que ha realizado el post
+     * O que es administrador
      */
     public function delete(User $user, Post $post): bool
     {
-        return $user->id === $post->user_id;
+        return $user->id === $post->user_id || $user->isAdmin();
     }
 
     /**

@@ -34,7 +34,7 @@
                         type="file"
                         class="border p-3 w-full rounded-lg"
                         value="{{auth()->user()->imagen}}"
-                        accept=".jpg, .png, .gif"
+                        accept=".jpg,.jpeg,.png,.gif,.webp,.JPG,.JPEG,.PNG,.GIF,.WEBP"
                     />
                 </div>
 

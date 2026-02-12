@@ -55,6 +55,7 @@ Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.
 
 //Rutas para el control de comentarios
 Route::post('/{user:username}/posts/{post}', [ComentarioController::class, 'store'])->name('comentarios.store');
+Route::delete('/{user:username}/posts/{post}/comentarios/{comentario}', [ComentarioController::class, 'destroy'])->name('comentarios.destroy');
 
 //Rutas para las imagenes
 Route::post('/imagenes', [ImagenController::class, 'store'])->name('imagenes.store');

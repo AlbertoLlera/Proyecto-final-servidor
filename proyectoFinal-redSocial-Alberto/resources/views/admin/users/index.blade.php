@@ -10,6 +10,29 @@
         <a href="{{ route('admin.users.create') }}" class="bg-gray-900 text-white px-4 py-2 rounded-lg text-sm font-semibold">Nuevo usuario</a>
     </div>
 
+    <!-- Barra de búsqueda -->
+    <div class="mb-6">
+        <form method="GET" action="{{ route('admin.users.index') }}" class="flex gap-2">
+            <div class="flex-1">
+                <input 
+                    type="text" 
+                    name="search" 
+                    placeholder="Buscar por nombre, usuario o correo..." 
+                    value="{{ $search ?? '' }}"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                >
+            </div>
+            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg text-sm font-semibold">
+                Buscar
+            </button>
+            @if ($search)
+                <a href="{{ route('admin.users.index') }}" class="bg-gray-400 hover:bg-gray-500 text-white px-6 py-2 rounded-lg text-sm font-semibold">
+                    Limpiar
+                </a>
+            @endif
+        </form>
+    </div>
+
     <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-x-auto">
         <table class="min-w-full text-left text-sm">
             <thead class="bg-gray-50 text-gray-500 uppercase text-xs">
