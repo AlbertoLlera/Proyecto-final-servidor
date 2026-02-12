@@ -7,6 +7,7 @@
 
 import './bootstrap';
 import Dropzone from 'dropzone';
+import './modules/registerValidation';
 Dropzone.autoDiscover = false;
 
 const dropzoneElement = document.querySelector('#dropzone');

@@ -53,7 +53,7 @@
                             <form action="{{ route('users.unfollow', $user) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <input type="submit" class="bg-red-600 text-white rounded-lg px-3 py-1 text-xs font-bold cursor-pointer" value="Dejas de seguir">
+                                    <input type="submit" class="bg-red-600 text-white rounded-lg px-3 py-1 text-xs font-bold cursor-pointer" value="Dejar de seguir">
                             </form>
                         @endif
                     @endif

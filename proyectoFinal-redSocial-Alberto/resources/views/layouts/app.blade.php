@@ -90,7 +90,11 @@
         DevStagram - Todos los derechos reservados {{now()->year}}
     </footer>
 
-    <div id="cookie-consent" class="hidden fixed inset-x-0 bottom-0 z-50 p-4">
+    <div
+        id="cookie-consent"
+        class="hidden fixed inset-x-0 bottom-0 z-50 p-4"
+        data-cookie-endpoint="{{ route('cookies.accept') }}"
+    >
         <div class="mx-auto max-w-4xl bg-white border border-gray-200 rounded-xl shadow-2xl p-6 flex flex-col gap-3 text-gray-700">
             <p class="text-base leading-relaxed">
                 Utilizamos cookies técnicas obligatorias para garantizar el funcionamiento de DevStagram y la seguridad de tu sesión. Estas cookies no recaban datos personales con fines comerciales, pero la normativa exige tu aceptación expresa antes de seguir navegando.

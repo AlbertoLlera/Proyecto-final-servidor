@@ -9,7 +9,7 @@ use Illuminate\Auth\Access\Response;
 class PostPolicy
 {
     /**
-     * Determine whether the user can view any models.
+     * Determina si el usuario puede ver algún registro.
      */
     public function viewAny(User $user): bool
     {
@@ -17,7 +17,7 @@ class PostPolicy
     }
 
     /**
-     * Determine whether the user can view the model.
+     * Determina si el usuario puede ver este registro.
      */
     public function view(User $user, Post $post): bool
     {
@@ -25,7 +25,7 @@ class PostPolicy
     }
 
     /**
-     * Determine whether the user can create models.
+     * Determina si el usuario puede crear registros.
      */
     public function create(User $user): bool
     {
@@ -33,7 +33,7 @@ class PostPolicy
     }
 
     /**
-     * Determine whether the user can update the model.
+     * Determina si el usuario puede actualizar este registro.
      */
     public function update(User $user, Post $post): bool
     {
@@ -41,8 +41,7 @@ class PostPolicy
     }
 
     /**
-     * Conformamos que el usuario registrado es que ha realizado el post
-     * O que es administrador
+     * Confirmamos que el usuario que creó la publicación es quien la gestiona o que es administrador.
      */
     public function delete(User $user, Post $post): bool
     {
@@ -50,7 +49,7 @@ class PostPolicy
     }
 
     /**
-     * Determine whether the user can restore the model.
+     * Determina si el usuario puede restaurar este registro.
      */
     public function restore(User $user, Post $post): bool
     {
@@ -58,7 +57,7 @@ class PostPolicy
     }
 
     /**
-     * Determine whether the user can permanently delete the model.
+     * Determina si el usuario puede eliminar este registro de forma permanente.
      */
     public function forceDelete(User $user, Post $post): bool
     {

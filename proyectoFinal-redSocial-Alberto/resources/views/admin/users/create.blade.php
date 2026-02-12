@@ -6,7 +6,7 @@
 
 @section('contenido')
     <div class="max-w-xl mx-auto bg-white border border-gray-200 rounded-xl p-6 space-y-6">
-        <form action="{{ route('admin.users.store') }}" method="POST" class="space-y-6">
+        <form action="{{ route('admin.users.store') }}" method="POST" class="space-y-6" data-realtime-validation="true" data-form="admin-user-create">
             @include('admin.users._form')
 
             <div class="flex justify-end gap-3">
